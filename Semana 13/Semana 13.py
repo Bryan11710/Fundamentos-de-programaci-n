@@ -1,38 +1,37 @@
-def obtener_promedio_temperaturas(ciudades_datos):
+def obtener_temperaturas(ciudad):
+
+    temperaturas = {
+        'Oslo': [5.2, 7.1, 6.5],
+        'Bergen': [8.0, 9.3, 7.9],
+        'Stavanger': [6.8, 7.2, 6.9]
+    }
+    return temperaturas.get(ciudad, [None, None, None])
 
 
-    # Diccionario donde almacenaremos el promedio de cada ciudad
-    promedio_ciudades = {}
+def main():
+    ciudades_noruega = ['Oslo', 'Bergen', 'Stavanger']
 
-    # Iteramos por cada ciudad y sus respectivas temperaturas semanales
-    for ciudad, semanas in ciudades_datos.items():
-        # 'ciudad' representa el nombre de la ciudad, 'semanas' es una lista con las temperaturas semanales
+    # Seleccionar ciudad
+    print("Seleccione una ciudad de Noruega:")
+    for i, ciudad in enumerate(ciudades_noruega, 1):
+        print(f"{i}. {ciudad}")
 
-        # Convertimos las listas de temperaturas semanales en una sola lista con todas las temperaturas
-        temperaturas_totales = [temp for semana in semanas for temp in semana]
+    opcion = int(input("Ingrese el número de la ciudad: "))
 
-        # Calculamos el promedio dividiendo la suma total de las temperaturas por la cantidad de datos
-        promedio = sum(temperaturas_totales) / len(temperaturas_totales)
+    if 1 <= opcion <= len(ciudades_noruega):
+        ciudad_seleccionada = ciudades_noruega[opcion - 1]
+        print(f"Ha seleccionado: {ciudad_seleccionada}")
 
-        # Guardamos el promedio en el diccionario 'promedio_ciudades'
-        promedio_ciudades[ciudad] = promedio
+        # Obtener y mostrar temperaturas
+        temperaturas = obtener_temperaturas(ciudad_seleccionada)
+        print("\nTemperaturas para las semanas 1, 2 y 3:")
+        print(f"Semana 1: {temperaturas[0]} °C")
+        print(f"Semana 2: {temperaturas[1]} °C")
+        print(f"Semana 3: {temperaturas[2]} °C")
+    else:
+        print("Opción no válida.")
 
-    # Retornamos el diccionario con los promedios de cada ciudad
-    return promedio_ciudades
 
-
-# Ejemplo de uso:
-datos_ciudades = {
-    "CiudadA": [[25, 27, 26], [24, 26, 28], [27, 29, 30], [25, 24, 26]],
-    "CiudadB": [[18, 20, 19], [17, 18, 21], [19, 20, 22], [18, 19, 20]],
-    "CiudadC": [[30, 32, 31], [29, 31, 33], [31, 32, 34], [30, 29, 31]]
-}
-
-# Llamada a la función para calcular los promedios
-promedios = obtener_promedio_temperaturas(datos_ciudades)
-
-# Mostramos el resultado para cada ciudad
-for ciudad, promedio in promedios.items():
-    # Formateamos para que solo se muestren dos decimales
-    print(f"El promedio de temperatura en {ciudad} es {promedio:.2f}°C")
+if __name__ == "__main__":
+    main()
 
